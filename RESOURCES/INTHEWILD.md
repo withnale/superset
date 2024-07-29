@@ -52,7 +52,6 @@ Join our growing community!
 - [Cover Genius](https://covergenius.com/)
 
 ### Gaming
-
 - [Popoko VM Games Studio](https://popoko.live)
 
 ### E-Commerce
@@ -62,8 +61,7 @@ Join our growing community!
 - [Dragonpass](https://www.dragonpass.com.cn/) [@zhxjdwh]
 - [Dropit Shopping](https://www.dropit.shop/) [@dropit-dev]
 - [Fanatics](https://www.fanatics.com/) [@coderfender]
-- [Fordeal](https://www.fordeal.com) [@Renkai]
-- [Fynd](https://www.fynd.com/) [@darpanjain07]
+- [Fordeal](http://www.fordeal.com) [@Renkai]
 - [GFG - Global Fashion Group](https://global-fashion-group.com) [@ksaagariconic]
 - [GoTo/Gojek](https://www.gojek.io/) [@gwthm-in]
 - [HuiShouBao](https://www.huishoubao.com/) [@Yukinoshita-Yukino]
@@ -72,9 +70,8 @@ Join our growing community!
 - [Rakuten Viki](https://www.viki.com)
 - [Shopee](https://shopee.sg) [@xiaohanyu]
 - [Shopkick](https://www.shopkick.com) [@LAlbertalli]
-- [ShopUp](https://www.shopup.org/) [@gwthm-in]
 - [Tails.com](https://tails.com/gb/) [@alanmcruickshank]
-- [THE ICONIC](https://theiconic.com.au/) [@ksaagariconic]
+- [THE ICONIC](http://theiconic.com.au/) [@ksaagariconic]
 - [Utair](https://www.utair.ru) [@utair-digital]
 - [VkusVill](https://vkusvill.ru/) [@ETselikov]
 - [Zalando](https://www.zalando.com) [@dmigo]
@@ -123,12 +120,10 @@ Join our growing community!
 - [Reward Gateway](https://www.rewardgateway.com)
 - [RIADVICE](https://riadvice.tn) [@riadvice]
 - [ScopeAI](https://www.getscopeai.com) [@iloveluce]
-- [shipmnts](https://shipmnts.com)
 - [Showmax](https://showmax.com) [@bobek]
-- [SingleStore](https://www.singlestore.com/)
 - [TechAudit](https://www.techaudit.info) [@ETselikov]
 - [Tenable](https://www.tenable.com) [@dflionis]
-- [Tentacle](https://www.linkedin.com/company/tentacle-cmi/) [@jdclarke5]
+- [Tentacle](https://tentaclecmi.com) [@jdclarke5]
 - [timbr.ai](https://timbr.ai/) [@semantiDan]
 - [Tobii](https://www.tobii.com/) [@dwa]
 - [Tooploox](https://www.tooploox.com/) [@jakubczaplicki]
