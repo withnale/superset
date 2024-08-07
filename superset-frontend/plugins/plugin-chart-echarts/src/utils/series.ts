@@ -33,7 +33,7 @@ import {
   TimeFormatter,
   ValueFormatter,
 } from '@superset-ui/core';
-import { SortSeriesType, LegendPaddingType } from '@superset-ui/chart-controls';
+import { SortSeriesType } from '@superset-ui/chart-controls';
 import { format } from 'echarts/core';
 import type { LegendComponentOption } from 'echarts/components';
 import type { SeriesOption } from 'echarts';
