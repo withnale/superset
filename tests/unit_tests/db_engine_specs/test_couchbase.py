@@ -62,9 +62,7 @@ def test_convert_dttm(
     expected_result: Optional[str],
     dttm: datetime,  # noqa: F811
 ) -> None:
-    from superset.db_engine_specs.couchbase import (
-        CouchbaseEngineSpec as spec,  # noqa: N813
-    )
+    from superset.db_engine_specs.couchbase import CouchbaseEngineSpec as spec
 
     assert_convert_dttm(spec, target_type, expected_result, dttm)
 
@@ -90,8 +88,6 @@ def test_get_column_spec(
     generic_type: GenericDataType,
     is_dttm: bool,
 ) -> None:
-    from superset.db_engine_specs.couchbase import (
-        CouchbaseEngineSpec as spec,  # noqa: N813
-    )
+    from superset.db_engine_specs.couchbase import CouchbaseEngineSpec as spec
 
     assert_column_spec(spec, native_type, sqla_type, attrs, generic_type, is_dttm)

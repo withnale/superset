@@ -37,7 +37,7 @@ Join our growing community!
 
 ### Financial Services
 
-- [Aktia Bank plc](https://www.aktia.com)
+- [Aktia Bank plc](https://www.aktia.com) [@villebro]
 - [American Express](https://www.americanexpress.com) [@TheLastSultan]
 - [bumper](https://www.bumper.co/) [@vasu-ram, @JamiePercival]
 - [Cape Crypto](https://capecrypto.com)
@@ -52,6 +52,7 @@ Join our growing community!
 - [Cover Genius](https://covergenius.com/)
 
 ### Gaming
+
 - [Popoko VM Games Studio](https://popoko.live)
 
 ### E-Commerce
@@ -89,6 +90,7 @@ Join our growing community!
 - [Canonical](https://canonical.com)
 - [Careem](https://www.careem.com/) [@samraHanif0340]
 - [Cloudsmith](https://cloudsmith.io) [@alancarson]
+- [CnOvit](https://www.cnovit.com/) [@xieshaohu]
 - [Cyberhaven](https://www.cyberhaven.com/) [@toliver-ch]
 - [Deepomatic](https://deepomatic.com/) [@Zanoellia]
 - [Dial Once](https://www.dial-once.com/)
