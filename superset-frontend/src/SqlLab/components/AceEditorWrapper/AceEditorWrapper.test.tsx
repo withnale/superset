@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import reducerIndex from 'spec/helpers/reducerIndex';
 import { render, waitFor, createStore } from 'spec/helpers/testing-library';
 import { QueryEditor } from 'src/SqlLab/types';
@@ -31,6 +33,10 @@ import {
   queryEditorSetDb,
 } from 'src/SqlLab/actions/sqlLab';
 import fetchMock from 'fetch-mock';
+
+fetchMock.get('glob:*/api/v1/database/*/function_names/', {
+  function_names: [],
+});
 
 fetchMock.get('glob:*/api/v1/database/*/function_names/', {
   function_names: [],
@@ -119,7 +125,7 @@ describe('AceEditorWrapper', () => {
       queryEditorSetCursorPosition(defaultQueryEditor, updatedCursorPosition),
     );
     expect(FullSQLEditor).toHaveBeenCalledTimes(renderCount);
-    store.dispatch(queryEditorSetDb(defaultQueryEditor, 2));
+    store.dispatch(queryEditorSetDb(defaultQueryEditor, 1));
     expect(FullSQLEditor).toHaveBeenCalledTimes(renderCount + 1);
   });
 });
