@@ -16,15 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import type Owner from 'src/types/Owner';
 import {
   getCategoricalSchemeRegistry,
+  styled,
   isFeatureEnabled,
   FeatureFlag,
+  SupersetTheme,
 } from '@superset-ui/core';
 import getOwnerName from 'src/utils/getOwnerName';
 import { Tooltip } from 'src/components/Tooltip';
-import { Avatar, AvatarGroup } from 'src/components/Avatar';
+import { Avatar } from 'src/components';
 import { getRandomColor } from './utils';
 
 interface FacePileProps {
