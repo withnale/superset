@@ -91,29 +91,6 @@ const buildQuery: BuildQuery<TableChartFormData> = (
       (shift: string) => shift === 'custom' || shift === 'inherit',
     );
 
-    let timeOffsets: string[] = [];
-
-    // Shifts for non-custom or non inherit time comparison
-    if (
-      isTimeComparison(formData, baseQueryObject) &&
-      !isEmpty(nonCustomNorInheritShifts)
-    ) {
-      timeOffsets = nonCustomNorInheritShifts;
-    }
-
-    // Shifts for custom or inherit time comparison
-    if (
-      isTimeComparison(formData, baseQueryObject) &&
-      !isEmpty(customOrInheritShifts)
-    ) {
-      if (customOrInheritShifts.includes('custom')) {
-        timeOffsets = timeOffsets.concat([formData.start_date_offset]);
-      }
-      if (customOrInheritShifts.includes('inherit')) {
-        timeOffsets = timeOffsets.concat(['inherit']);
-      }
-    }
-
     let temporalColumnAdded = false;
     let temporalColumn = null;
 
