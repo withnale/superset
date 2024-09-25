@@ -47,60 +47,32 @@ def run_cypress_for_test_file(
     browser = os.getenv("CYPRESS_BROWSER", "chrome")
     chrome_flags = "--disable-dev-shm-usage"
 
-    for attempt in range(retries):
-        # Create Cypress command for a single test file
-        cmd: str = ""
-        if use_dashboard:
-            # If/when we want to use cypress' dashboard feature to record the run
-            group_id = f"matrix{group}-file{i}-{attempt}"
-            cmd = (
-                f"{XVFB_PRE_CMD} "
-                f'{cypress_cmd} --spec "{test_file}" '
-                f"--config numTestsKeptInMemory=0 "
-                f"--browser {browser} "
-                f"--record --group {group_id} --tag {REPO},{GITHUB_EVENT_NAME} "
-                f"--ci-build-id {build_id} "
-                f"-- {chrome_flags}"
-            )
-        else:
-            os.environ.pop("CYPRESS_RECORD_KEY", None)
-            cmd = (
-                f"{XVFB_PRE_CMD} "
-                f"{cypress_cmd} "
-                f"--browser {browser} "
-                f"--config numTestsKeptInMemory=0 "
-                f'--spec "{test_file}" '
-                f"-- {chrome_flags}"
-            )
-            print(f"RUN: {cmd} (Attempt {attempt + 1}/{retries})")
-        if dry_run:
-            # Print the command instead of executing it
-            print(f"DRY RUN: {cmd}")
-            return 0
+    # Add --disable-dev-shm-usage for Chrome browser
+    chrome_flags = "--disable-dev-shm-usage"
 
-        process = subprocess.Popen(  # noqa: S602
-            cmd,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            universal_newlines=True,
+    if use_dashboard:
+        # Run using cypress.io service
+        spec: str = "cypress/e2e/*/**/*"
+        cmd = (
+            f"{XVFB_PRE_CMD} "
+            f'{cypress_cmd} --spec "{spec}" --browser {browser} '
+            f"--record --group {group} --tag {REPO},{GITHUB_EVENT_NAME} "
+            f"--parallel --ci-build-id {build_id} "
+            f"-- {chrome_flags}"
         )
-
-        # Stream stdout in real-time
-        if process.stdout:
-            for stdout_line in iter(process.stdout.readline, ""):
-                print(stdout_line, end="")
-
-        process.wait()
-
-        if process.returncode == 0:
-            print(f"Test {test_file} succeeded on attempt {attempt + 1}")
-            return 0
-        else:
-            print(f"Test {test_file} failed on attempt {attempt + 1}")
-
-    print(f"Test {test_file} failed after {retries} retries.")
-    return process.returncode
+    else:
+        # Run local, but split the execution
+        os.environ.pop("CYPRESS_RECORD_KEY", None)
+        spec_list_str = ",".join(sorted(spec_list))
+        if _filter:
+            spec_list_str = ",".join(sorted([s for s in spec_list if _filter in s]))
+        cmd = (
+            f"{XVFB_PRE_CMD} "
+            f"{cypress_cmd} --browser {browser} "
+            f'--spec "{spec_list_str}" '
+            f"-- {chrome_flags}"
+        )
+    return cmd
 
 
 def main() -> None:

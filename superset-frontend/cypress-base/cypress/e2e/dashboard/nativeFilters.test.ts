@@ -16,14 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import qs from 'querystring';
 import {
   dashboardView,
-  nativeFilters,
-  exploreView,
   dataTestChartName,
+  exploreView,
+  nativeFilters,
 } from 'cypress/support/directories';
+import qs from 'querystring';
 
+import {
+  prepareDashboardFilters,
+  SAMPLE_CHART,
+  visitDashboard,
+} from './shared_dashboard_functions';
 import {
   addCountryNameFilter,
   addParentFilterWithValue,
@@ -39,20 +44,15 @@ import {
   fillNativeFilterForm,
   getNativeFilterPlaceholderWithIndex,
   inputNativeFilterDefaultValue,
-  saveNativeFilterSettings,
   nativeFilterTooltips,
+  saveNativeFilterSettings,
+  testItems,
   undoDeleteNativeFilter,
   validateFilterContentOnDashboard,
-  valueNativeFilterOptions,
   validateFilterNameOnDashboard,
-  testItems,
+  valueNativeFilterOptions,
   WORLD_HEALTH_CHARTS,
 } from './utils';
-import {
-  prepareDashboardFilters,
-  SAMPLE_CHART,
-  visitDashboard,
-} from './shared_dashboard_functions';
 
 function selectFilter(index: number) {
   cy.get("[data-test='filter-title-container'] [draggable='true']")
