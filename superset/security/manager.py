@@ -184,7 +184,6 @@ def query_context_modified(query_context: "QueryContext") -> bool:
         ("metrics", ["metrics"]),
         ("columns", ["columns", "groupby"]),
         ("groupby", ["columns", "groupby"]),
-        ("orderby", ["orderby"]),
     ]:
         requested_values = {freeze_value(value) for value in form_data.get(key) or []}
         stored_values = {
