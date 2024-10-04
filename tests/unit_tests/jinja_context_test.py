@@ -488,7 +488,7 @@ FROM my_schema.old_dataset
         == f"""(
 SELECT ds AS ds, num_boys AS num_boys, revenue AS revenue, expenses AS expenses, revenue-expenses AS profit, COUNT(*) AS cnt{space}
 FROM my_schema.old_dataset GROUP BY ds, num_boys, revenue, expenses, revenue-expenses
-) AS dataset_1"""  # noqa: S608, E501
+) AS dataset_1"""
     )
 
     assert (
@@ -496,7 +496,7 @@ FROM my_schema.old_dataset GROUP BY ds, num_boys, revenue, expenses, revenue-exp
         == f"""(
 SELECT ds AS ds, COUNT(*) AS cnt{space}
 FROM my_schema.old_dataset GROUP BY ds
-) AS dataset_1"""  # noqa: S608
+) AS dataset_1"""
     )
 
     DatasetDAO.find_by_id.return_value = None
