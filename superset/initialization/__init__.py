@@ -534,12 +534,7 @@ class SupersetAppInitializer:  # pylint: disable=too-many-public-methods
         feature_flag_manager.init_app(self.superset_app)
 
     def configure_sqlglot_dialects(self) -> None:
-        extensions = self.config["SQLGLOT_DIALECTS_EXTENSIONS"]
-
-        if callable(extensions):
-            extensions = extensions()
-
-        SQLGLOT_DIALECTS.update(extensions)
+        SQLGLOT_DIALECTS.update(self.config["SQLGLOT_DIALECTS_EXTENSIONS"])
 
     @transaction()
     def configure_fab(self) -> None:

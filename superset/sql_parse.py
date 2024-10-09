@@ -64,7 +64,6 @@ from superset.sql.parse import (
     extract_tables_from_statement,
     SQLGLOT_DIALECTS,
     SQLScript,
-    SQLStatement,
     Table,
 )
 from superset.utils.backports import StrEnum
