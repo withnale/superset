@@ -286,7 +286,7 @@ class SQLStatement(BaseSQLStatement[exp.Expression]):
         script: str,
         engine: str,
     ) -> list[SQLStatement]:
-        if dialect := SQLGLOT_DIALECTS.get(engine):
+        if engine in SQLGLOT_DIALECTS:
             try:
                 return [
                     cls(ast.sql(), engine, ast)
@@ -307,7 +307,7 @@ class SQLStatement(BaseSQLStatement[exp.Expression]):
         remainder = script
 
         try:
-            tokens = sqlglot.tokenize(script, dialect)
+            tokens = sqlglot.tokenize(script)
         except sqlglot.errors.TokenError as ex:
             raise SupersetParseError(
                 script,
@@ -410,7 +410,7 @@ class SQLStatement(BaseSQLStatement[exp.Expression]):
 
         return self._fallback_formatting()
 
-    @deprecated(deprecated_in="4.0")
+    @deprecated(deprecated_in="4.0", removed_in="5.0")
     def _fallback_formatting(self) -> str:
         """
         Format SQL without a specific dialect.

@@ -301,7 +301,7 @@ def test_format_no_dialect() -> None:
     Test format with an engine that has no corresponding dialect.
     """
     assert (
-        SQLScript("SELECT col FROM t WHERE col NOT IN (1, 2)", "dremio").format()
+        SQLScript("SELECT col FROM t WHERE col NOT IN (1, 2)", "firebolt").format()
         == "SELECT col\nFROM t\nWHERE col NOT IN (1,\n                  2)"
     )
 
@@ -311,7 +311,7 @@ def test_split_no_dialect() -> None:
     Test the statement split when the engine has no corresponding dialect.
     """
     sql = "SELECT col FROM t WHERE col NOT IN (1, 2); SELECT * FROM t; SELECT foo"
-    statements = SQLScript(sql, "dremio").statements
+    statements = SQLScript(sql, "firebolt").statements
     assert len(statements) == 3
     assert statements[0]._sql == "SELECT col FROM t WHERE col NOT IN (1, 2)"
     assert statements[1]._sql == "SELECT * FROM t"
