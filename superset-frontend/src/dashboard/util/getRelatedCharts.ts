@@ -90,9 +90,9 @@ export function getRelatedCharts(
   const isCrossFilter =
     Object.keys(slices).includes(filterKey) && isAppliedCrossFilterType(filter);
 
-  const chartsInScope = Array.isArray(filter.scope)
-    ? filter.scope
-    : ((filter as Filter).chartsInScope ?? []);
+    const chartsInScope = Array.isArray(filter.scope)
+      ? filter.scope
+      : (filter as Filter).chartsInScope ?? [];
 
   if (isCrossFilter) {
     related = getRelatedChartsForCrossFilter(filterKey, slices, chartsInScope);
