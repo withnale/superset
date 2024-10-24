@@ -1104,7 +1104,22 @@ class DashboardRestApi(BaseSupersetModelRestApi):
             screenshot_obj.get_from_cache_key(cache_key) or ScreenshotCachePayload()
         )
 
-        def build_response(status_code: int) -> WerkzeugResponse:
+        def trigger_celery() -> WerkzeugResponse:
+            logger.info("Triggering screenshot ASYNC")
+            cache_dashboard_screenshot.delay(
+                username=get_current_user(),
+                guest_token=(
+                    g.user.guest_token
+                    if get_current_user() and isinstance(g.user, GuestUser)
+                    else None
+                ),
+                dashboard_id=dashboard.id,
+                dashboard_url=dashboard_url,
+                force=True,
+                thumb_size=thumb_size,
+                window_size=window_size,
+                cache_key=cache_key,
+            )
             return self.response(
                 status_code,
                 cache_key=cache_key,
