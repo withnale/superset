@@ -325,7 +325,7 @@ export const nativeFilters = {
     confirmCancelButton: dataTestLocator(
       'native-filter-modal-confirm-cancel-button',
     ),
-    alertXUnsavedFilters: '.antd5-alert-message',
+    alertXUnsavedFilters: '.ant-alert-message',
     tabsList: {
       filterItemsContainer: dataTestLocator('filter-title-container'),
       tabsContainer: '[class="ant-tabs-nav-list"]',

@@ -41,8 +41,22 @@ const useFilterFocusHighlightStyles = (chartId: number) => {
 
   const nativeFilters = useSelector((state: RootState) => state.nativeFilters);
 
+  const dashboardFilters = useSelector(
+    (state: RootState) => state.dashboardFilters,
+  );
+  const focusedFilterScope = selectFocusedFilterScope(
+    dashboardState,
+    dashboardFilters,
+  );
+
   const slices =
     useSelector((state: RootState) => state.sliceEntities.slices) || {};
+
+  const relatedCharts = getRelatedCharts(
+    nativeFilters.filters as Record<string, Filter>,
+    null,
+    slices,
+  );
 
   const highlightedFilterId =
     nativeFilters?.focusedFilterId || nativeFilters?.hoveredFilterId;

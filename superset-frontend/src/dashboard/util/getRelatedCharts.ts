@@ -34,20 +34,18 @@ function isGlobalScope(scope: number[], slices: Record<string, Slice>) {
 function getRelatedChartsForSelectFilter(
   slices: Record<string, Slice>,
   chartsInScope: number[],
-): number[] {
-  // all have been selected, always apply
-  if (isGlobalScope(chartsInScope, slices)) {
-    return Object.keys(slices).map(Number);
-  }
+) {
+  return Object.values(slices)
+    .filter(slice => {
+      const { slice_id } = slice;
+      // all have been selected, always apply
+      if (isGlobalScope(chartsInScope, slices)) return true;
+      // hand-picked in scope, always apply
+      if (chartsInScope.includes(slice_id)) return true;
 
-  const chartsInScopeSet = new Set(chartsInScope);
-
-  return Object.values(slices).reduce((result: number[], slice) => {
-    if (chartsInScopeSet.has(slice.slice_id)) {
-      result.push(slice.slice_id);
-    }
-    return result;
-  }, []);
+      return false;
+    })
+    .map(slice => slice.slice_id);
 }
 function getRelatedChartsForCrossFilter(
   filterKey: string,
@@ -58,27 +56,22 @@ function getRelatedChartsForCrossFilter(
 
   if (!sourceSlice) return [];
 
-  const fullScope = [
-    ...scope.filter(s => String(s) !== filterKey),
-    Number(filterKey),
-  ];
-  const scopeSet = new Set(scope);
+  return Object.values(slices)
+    .filter(slice => {
+      // cross-filter emitter
+      if (slice.slice_id === Number(filterKey)) return false;
+      // hand-picked in the scope, always apply
+      const fullScope = [
+        ...scope.filter(s => String(s) !== filterKey),
+        Number(filterKey),
+      ];
+      if (isGlobalScope(fullScope, slices)) return true;
+      // hand-picked in the scope, always apply
+      if (scope.includes(slice.slice_id)) return true;
 
-  return Object.values(slices).reduce((result: number[], slice) => {
-    if (slice.slice_id === Number(filterKey)) {
-      return result;
-    }
-    // Check if it's in the global scope
-    if (isGlobalScope(fullScope, slices)) {
-      result.push(slice.slice_id);
-      return result;
-    }
-    // Check if it's hand-picked in scope
-    if (scopeSet.has(slice.slice_id)) {
-      result.push(slice.slice_id);
-    }
-    return result;
-  }, []);
+      return false;
+    })
+    .map(slice => slice.slice_id);
 }
 
 export function getRelatedCharts(
@@ -98,16 +91,38 @@ export function getRelatedCharts(
     related = getRelatedChartsForCrossFilter(filterKey, slices, chartsInScope);
   }
 
-  const nativeFilter = filter as AppliedNativeFilterType | Filter;
-  // on highlight, a standard native filter is passed
-  // on apply, an applied native filter is passed
-  if (
-    !isCrossFilter ||
-    isAppliedNativeFilterType(nativeFilter) ||
-    isNativeFilter(nativeFilter)
-  ) {
-    related = getRelatedChartsForSelectFilter(slices, chartsInScope);
-  }
+      return {
+        ...acc,
+        [filterKey]: getRelatedChartsForCrossFilter(
+          filterKey,
+          actualCrossFilter,
+          slices,
+          chartsInScope,
+        ),
+      };
+    }
+
+    const nativeFilter = filter as AppliedNativeFilterType | Filter;
+    // on highlight, a standard native filter is passed
+    // on apply, an applied native filter is passed
+    if (
+      isAppliedNativeFilterType(nativeFilter) ||
+      isNativeFilter(nativeFilter)
+    ) {
+      return {
+        ...acc,
+        [filterKey]: getRelatedChartsForSelectFilter(
+          nativeFilter,
+          slices,
+          chartsInScope,
+        ),
+      };
+    }
+    return {
+      ...acc,
+      [filterKey]: chartsInScope,
+    };
+  }, {});
 
   return related;
 }

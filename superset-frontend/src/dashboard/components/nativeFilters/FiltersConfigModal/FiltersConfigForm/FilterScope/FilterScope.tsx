@@ -17,9 +17,11 @@
  * under the License.
  */
 
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { NativeFilterScope, styled } from '@superset-ui/core';
-import { AntdForm } from 'src/components';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { NativeFilterScope, styled, t } from '@superset-ui/core';
+import { Radio } from 'src/components/Radio';
+import { AntdForm, Typography } from 'src/components';
+import { ScopingType } from './types';
 import ScopingTree from './ScopingTree';
 import { getDefaultScopeValue } from './utils';
 
@@ -59,6 +61,14 @@ const FilterScope: FC<FilterScopeProps> = ({
     () => filterScope || getDefaultScopeValue(chartId, initiallyExcludedCharts),
     [chartId, filterScope, initiallyExcludedCharts],
   );
+  const lastSpecificScope = useRef(initialFilterScope);
+  const initialScopingType = useMemo(
+    () =>
+      isScopingAll(initialFilterScope, chartId)
+        ? ScopingType.All
+        : ScopingType.Specific,
+    [chartId, initialFilterScope],
+  );
   const [hasScopeBeenModified, setHasScopeBeenModified] = useState(false);
 
   const onUpdateFormValues = useCallback(
@@ -83,9 +93,10 @@ const FilterScope: FC<FilterScopeProps> = ({
   useEffect(() => {
     const updatedFormValues = {
       scope: initialFilterScope,
+      scoping: initialScopingType,
     };
     updateScopes(updatedFormValues);
-  }, [initialFilterScope, updateScopes]);
+  }, [initialFilterScope, initialScopingType, updateScopes]);
 
   return (
     <Wrapper>
