@@ -27,6 +27,7 @@ export default function DownloadAsImage({
   text,
   logEvent,
   dashboardTitle,
+  ...rest
 }: {
   text: string;
   dashboardTitle: string;
