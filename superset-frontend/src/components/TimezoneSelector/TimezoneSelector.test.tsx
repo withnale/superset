@@ -16,14 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import userEvent from '@testing-library/user-event';
+import moment from 'moment-timezone';
 import { FC } from 'react';
-import { extendedDayjs } from 'src/utils/dates';
-import {
-  render,
-  screen,
-  userEvent,
-  waitFor,
-} from 'spec/helpers/testing-library';
+import { render, screen, waitFor } from 'spec/helpers/testing-library';
 import type { TimezoneSelectorProps } from './index';
 
 const loadComponent = (mockCurrentTime?: string) => {
@@ -51,7 +47,7 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-test('use the timezone from `dayjs` if no timezone provided', async () => {
+test('use the timezone from `moment` if no timezone provided', async () => {
   const TimezoneSelector = await loadComponent('2022-01-01');
   const onTimezoneChange = jest.fn();
   render(<TimezoneSelector onTimezoneChange={onTimezoneChange} />);
@@ -94,8 +90,8 @@ test('render timezones in correct order for standard time', async () => {
   openSelectMenu();
   const options = await getSelectOptions();
   expect(options[0]).toHaveTextContent('GMT -05:00 (Eastern Standard Time)');
-  expect(options[1]).toHaveTextContent('GMT -11:00 (Pacific/Midway)');
-  expect(options[2]).toHaveTextContent('GMT -11:00 (Pacific/Niue)');
+  expect(options[1]).toHaveTextContent('GMT -11:00 (Pacific/Pago_Pago)');
+  expect(options[2]).toHaveTextContent('GMT -10:00 (Hawaii Standard Time)');
 });
 
 test('can select a timezone values and returns canonical timezone name', async () => {
@@ -111,7 +107,7 @@ test('can select a timezone values and returns canonical timezone name', async (
 
   const searchInput = screen.getByRole('combobox');
   // search for mountain time
-  userEvent.type(searchInput, 'mou');
+  await userEvent.type(searchInput, 'mou');
   const findTitle = 'GMT -07:00 (Mountain Standard Time)';
   const selectOption = await screen.findByTitle(findTitle);
   userEvent.click(selectOption);
